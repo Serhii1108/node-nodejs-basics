@@ -1,19 +1,18 @@
 import { existsSync, rename as changeName } from 'fs'
-import path from 'path'
 
-const defPath = path.resolve('fs')
+const filesPath = new URL('./files/', import.meta.url).pathname.slice(3)
 
 export const rename = async () => {
   try {
     if (
-      !existsSync(`${defPath}/files/wrongFilename.txt`) ||
-      existsSync(`${defPath}/files/properFilename.md`)
+      !existsSync(`${filesPath}/wrongFilename.txt`) ||
+      existsSync(`${filesPath}/properFilename.md`)
     ) {
       throw new Error('FS operation failed')
     } else {
       changeName(
-        `${defPath}/files/wrongFilename.txt`,
-        `${defPath}/files/properFilename.md`,
+        `${filesPath}/wrongFilename.txt`,
+        `${filesPath}/properFilename.md`,
         (err) => {
           if (err) throw err
         }

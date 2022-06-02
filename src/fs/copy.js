@@ -1,26 +1,26 @@
 import { copyFile, existsSync, mkdirSync, readdir } from 'fs'
-import path from 'path'
 
-const defPath = path.resolve('fs')
+const filesPath = new URL('./files/', import.meta.url).pathname.slice(3)
+
+const filesCopyPath = new URL('./files_copy/', import.meta.url).pathname.slice(
+  3
+)
 
 export const copy = async () => {
   try {
-    if (
-      !existsSync(`${defPath}/files`) ||
-      existsSync(`${defPath}/files_copy`)
-    ) {
+    if (!existsSync(filesPath) || existsSync(filesCopyPath)) {
       throw new Error('FS operation failed')
     } else {
-      mkdirSync(`${defPath}/files_copy/`)
+      mkdirSync(filesCopyPath)
 
-      readdir(`${defPath}/files/`, (err, files) => {
+      readdir(filesPath, (err, files) => {
         if (err) {
           throw err
         }
         files.forEach((file) => {
           copyFile(
-            `${defPath}/files/${file}`,
-            `${defPath}/files_copy/${file}`,
+            `${filesPath}/${file}`,
+            `${filesCopyPath}/${file}`,
             (err) => {
               if (err) throw err
             }

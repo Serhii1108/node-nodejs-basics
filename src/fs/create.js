@@ -1,20 +1,15 @@
 import { appendFile, existsSync } from 'fs'
-import path from 'path'
 
-const defPath = path.resolve('fs')
+const filesPath = new URL('./files/', import.meta.url).pathname.slice(3)
 
 export const create = async () => {
   try {
-    if (existsSync(`${defPath}/files/fresh.txt`)) {
+    if (existsSync(`${filesPath}/fresh.txt`)) {
       throw new Error('FS operation failed')
     } else {
-      appendFile(
-        `${defPath}/files/fresh.txt`,
-        'I am fresh and young',
-        (err) => {
-          if (err) throw err
-        }
-      )
+      appendFile(`${filesPath}/fresh.txt`, 'I am fresh and young', (err) => {
+        if (err) throw err
+      })
     }
   } catch (err) {
     console.error(err.message)

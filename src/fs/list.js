@@ -1,14 +1,13 @@
 import { existsSync, readdir } from 'fs'
-import path from 'path'
 
-const defPath = path.resolve('fs')
+const filesPath = new URL('./files/', import.meta.url)
 
 export const list = async () => {
   try {
-    if (!existsSync(`${defPath}/files`)) {
+    if (!existsSync(filesPath)) {
       throw new Error('FS operation failed')
     } else {
-      readdir(`${defPath}/files/`, (err, files) => {
+      readdir(filesPath, (err, files) => {
         if (err) throw err
 
         files.forEach((file) => {
