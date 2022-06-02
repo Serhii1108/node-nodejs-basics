@@ -1,4 +1,5 @@
-import { existsSync, readdir } from 'fs'
+import { readdir } from 'fs/promises'
+import { existsSync } from 'fs'
 
 const filesPath = new URL('./files/', import.meta.url)
 
@@ -7,9 +8,7 @@ export const list = async () => {
     if (!existsSync(filesPath)) {
       throw new Error('FS operation failed')
     } else {
-      readdir(filesPath, (err, files) => {
-        if (err) throw err
-
+      await readdir(filesPath).then((files) => {
         files.forEach((file) => {
           console.log('--------------------')
           console.log(file)

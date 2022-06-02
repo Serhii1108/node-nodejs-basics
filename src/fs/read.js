@@ -1,4 +1,5 @@
-import { existsSync, readFile } from 'fs'
+import { readFile } from 'fs/promises'
+import { existsSync } from 'fs'
 
 const filesPath = new URL('./files/', import.meta.url).pathname.slice(3)
 
@@ -7,12 +8,8 @@ export const read = async () => {
     if (!existsSync(`${filesPath}/fileToRead.txt`)) {
       throw new Error('FS operation failed')
     } else {
-      readFile(
-        `${filesPath}/fileToRead.txt`,
-        { encoding: 'utf8' },
-        (err, data) => {
-          if (err) throw err
-
+      await readFile(`${filesPath}/fileToRead.txt`, { encoding: 'utf8' }).then(
+        (data) => {
           console.log('--------------')
           console.table(data)
           console.log('--------------')

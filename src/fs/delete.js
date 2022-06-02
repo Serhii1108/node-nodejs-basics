@@ -1,4 +1,5 @@
-import { rm, existsSync } from 'fs'
+import { rm } from 'fs/promises'
+import { existsSync } from 'fs'
 
 const filesPath = new URL('./files/', import.meta.url).pathname.slice(3)
 
@@ -7,9 +8,7 @@ export const remove = async () => {
     if (!existsSync(`${filesPath}/fileToRemove.txt`)) {
       throw new Error('FS operation failed')
     } else {
-      rm(`${filesPath}/fileToRemove.txt`, (err) => {
-        if (err) throw err
-      })
+      await rm(`${filesPath}/fileToRemove.txt`)
     }
   } catch (err) {
     console.error(err.message)
