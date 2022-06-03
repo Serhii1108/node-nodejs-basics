@@ -16,9 +16,11 @@ export const compress = async () => {
   const source = createReadStream(fileToCompressPath)
   const destination = createWriteStream(archiveFilePath)
 
-  await pipe(source, gzip, destination).catch((err) => {
-    console.error(err)
-  })
+  await pipe(source, gzip, destination)
+    .then(console.log('Compresed'))
+    .catch((err) => {
+      console.error(err)
+    })
 }
 
 compress()
