@@ -1,5 +1,6 @@
 import { pipeline, Transform } from 'stream'
 
+console.log('Write something...')
 console.log('------------------------')
 
 export const transform = async () => {

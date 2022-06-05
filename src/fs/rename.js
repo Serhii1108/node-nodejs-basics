@@ -14,7 +14,10 @@ export const rename = async () => {
       await changeName(
         `${filesPath}/wrongFilename.txt`,
         `${filesPath}/properFilename.md`
-      )
+      ).then(() => {
+        console.log('File name changed successfully!')
+        console.log('New name: properFilename.md\n')
+      })
     }
   } catch (err) {
     console.error(err.message)

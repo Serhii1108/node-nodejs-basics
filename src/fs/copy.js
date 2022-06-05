@@ -18,6 +18,7 @@ export const copy = async () => {
         files.forEach((file) => {
           copyFile(`${filesPath}/${file}`, `${filesCopyPath}/${file}`)
         })
+        console.log('Files successfully copied!\n')
       })
     }
   } catch (err) {

@@ -12,6 +12,10 @@ export const write = async () => {
     .on('error', (err) => {
       console.error(err)
     })
+
+  console.log(
+    'Write something and you will see it in the file "fileToWrite.txt"\n'
+  )
 }
 
 write()

@@ -8,7 +8,9 @@ export const remove = async () => {
     if (!existsSync(`${filesPath}/fileToRemove.txt`)) {
       throw new Error('FS operation failed')
     } else {
-      await rm(`${filesPath}/fileToRemove.txt`)
+      await rm(`${filesPath}/fileToRemove.txt`).then(() => {
+        console.log('File deleted successfully!\n')
+      })
     }
   } catch (err) {
     console.error(err.message)

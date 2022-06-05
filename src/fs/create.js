@@ -8,7 +8,11 @@ export const create = async () => {
     if (existsSync(`${filesPath}/fresh.txt`)) {
       throw new Error('FS operation failed')
     } else {
-      await appendFile(`${filesPath}/fresh.txt`, 'I am fresh and young')
+      await appendFile(`${filesPath}/fresh.txt`, 'I am fresh and young').then(
+        () => {
+          console.log('File created successfully!\n')
+        }
+      )
     }
   } catch (err) {
     console.error(err.message)

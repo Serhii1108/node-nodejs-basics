@@ -10,17 +10,23 @@ const fileToCompressPath = new URL(
 const archiveFilePath = new URL('./files/archive.gz', import.meta.url)
 
 export const decompress = async () => {
-  const pipe = promisify(pipeline)
+  try {
+    const pipe = promisify(pipeline)
 
-  const unzip = createUnzip()
-  const source = createReadStream(archiveFilePath)
-  const destination = createWriteStream(fileToCompressPath)
+    const unzip = createUnzip()
+    const source = createReadStream(archiveFilePath)
+    const destination = createWriteStream(fileToCompressPath)
 
-  await pipe(source, unzip, destination)
-    .then(console.log('Decompresed'))
-    .catch((err) => {
-      console.error(err)
-    })
+    await pipe(source, unzip, destination)
+      .catch((err) => {
+        throw err
+      })
+      .then(() => {
+        console.log('File was successfully decompressed\n')
+      })
+  } catch (err) {
+    console.error(err.message)
+  }
 }
 
 decompress()
